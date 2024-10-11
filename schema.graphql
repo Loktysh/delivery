@@ -1,0 +1,36 @@
+type Order {
+  id: ID!
+  status: String!
+  createdAt: String!
+  cost: Float!
+  address: String!
+  deliveryStartedAt: String
+  phoneNumber: String!
+}
+
+type Query {
+  order(id: ID!): Order
+  orders: [Order!]!
+}
+
+type Mutation {
+  createOrder(
+    status: String!
+    cost: Float!
+    address: String!
+    phoneNumber: String!
+  ): Order!
+  updateOrder(
+    id: ID!
+    status: String
+    cost: Float
+    address: String
+    deliveryStartedAt: String
+    phoneNumber: String
+  ): Order
+}
+
+type Subscription {
+  orderCreated: Order!
+  orderUpdated: Order!
+}
