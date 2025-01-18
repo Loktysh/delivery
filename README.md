@@ -1,9 +1,9 @@
-# For starting backend
+## For starting backend
 cd server
 npm install
 npm run start
 
-#For starting frontend
+## For starting frontend
 cd client
 npm install
 next dev
