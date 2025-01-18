@@ -1,4 +1,4 @@
-const { ApolloServer } = require('apollo-server');
+const { ApolloServer, gql } = require('apollo-server-express');
 const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core');
 const { makeExecutableSchema } = require('@graphql-tools/schema');
 const express = require('express');
@@ -6,7 +6,9 @@ const http = require('http');
 const { WebSocketServer } = require('ws');
 const { useServer } = require('graphql-ws/lib/use/ws');
 
-const typeDefs = require('./schema');
+const typeDefs = gql`
+  ${require('fs').readFileSync(require.resolve('./schema.graphql'), 'utf8')}
+`;
 const resolvers = require('./resolvers');
 
 // In-memory data store for orders
@@ -40,9 +42,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
       },
     ],
   });
-
   await server.start();
-
   server.applyMiddleware({ app });
 
   const PORT = 4000;
